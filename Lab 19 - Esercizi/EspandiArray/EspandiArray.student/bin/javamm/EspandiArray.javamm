@@ -1,0 +1,39 @@
+
+int[][] espandiArray(int[] V) {
+	int colonne = V.length;
+	int righe = getMax(V);
+	int[][] m = new int[righe][colonne];
+	for (int i = 0; i < m.length; i++) {
+		for (int j = 0; j < m[0].length; j++) {
+			m[i][j] = 0;
+			if (i < V[j]) {
+				m[i][j] = V[j];
+			}
+		}
+	}
+	stampaMat(m);
+	return m;
+}
+
+int getMax(int[] arr) {
+	int max = arr[0];
+	for (int i = 1; i < arr.length; i++) {
+		if(max < arr[i]) max = arr[i];
+	}
+	return max;
+}
+
+void stampaArr(int[] arr) {
+	String s = "";
+	for (int i = 0; i < arr.length; i++) {
+		s += arr[i] + "    ";
+	}
+	System.out.println("\n" + s);
+}
+
+void stampaMat(int[][] m) {
+	for (int i = 0; i < m.length; i++) {
+		stampaArr(m[i]);
+	}
+}
+

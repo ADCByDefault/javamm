@@ -1,0 +1,26 @@
+int[] cercaIndice(int[][] T, int r, int c) {
+	int t = T[r][c];
+	T[r][c] = 0;
+	int rmin = (r > 0) ? r - 1 : 0;
+	int rmax = (r < T.length - 1) ? r + 1 : r;
+	int cmin = (c > 0) ? c - 1 : 0;
+	int cmax = (c < T[0].length - 1) ? c + 1 : c;
+	for (int i = rmax; i >= rmin; i--) {
+		for (int j = cmax; j >= cmin; j--) {
+			if (T[i][j] == 1) {
+				T[r][c] = t;
+				return {i, j};
+			}
+		}
+	}
+	return null;
+}
+
+int[][] esplodiMatrice(int[][] T, int r, int c) {
+	if(T[r][c] == 0) return T;
+	T[r][c] = 0;
+	int[] prossimaCellaEsplosiva = cercaIndice(T, r, c);
+	if(prossimaCellaEsplosiva == null) return T;
+	return esplodiMatrice(T, prossimaCellaEsplosiva[0], prossimaCellaEsplosiva[1]);
+}
+

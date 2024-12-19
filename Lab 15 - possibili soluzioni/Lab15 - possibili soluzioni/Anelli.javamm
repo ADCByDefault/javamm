@@ -1,0 +1,45 @@
+boolean anelloBilanciato(int[][] T, int k) {
+
+	int centro = T.length / 2; // Centro della matrice. 
+	// La prima riga in alto dell'anello ha come indice riga 
+	// il valore "centro-k", e come indice colonna i valori
+	// che vanno da "inizioRiga" fino a "fineRiga".
+	int inizioRiga = centro - k;
+	int fineRiga = centro + k;
+
+	// Per l'anello k, la prima riga in alto è 
+	// composta da 2*k+1 elementi 
+	for (int step = 0; step < 2 * k + 1; step++) {
+
+		// Scorro contemporaneamente la riga in alto da sinistra
+		// verso destra, e la riga in basso da destra verso sinistra. 
+		if ((T[inizioRiga][inizioRiga + step] + // elemento riga in alto;
+		T[fineRiga][fineRiga - step]) // elemento corrispondente riga in basso;
+		!= T[centro][centro])
+			return false;
+	}
+
+	// La prima colonna a sinistra dell'anello ha come indice colonna 
+	// il valore "centro-k", e come indice riga i valori
+	// che vanno da "inizioColonna" fino a "fineColonna".
+	// Nota: il primo e ultimo elemento della colonna li ho già 
+	// controllati al passo precedente, quindi è inutile controllarli
+	// anche in questo passo e quindi non li considero.
+	int inizioColonna = centro - k + 1;
+	int fineColonna = centro + k - 1;
+
+	// Per l'anello k, la prima colonna a sinistra
+	// è composta da 2*k-1 elementi (il primo e ultimo elemento
+	// della colonna li ho già considerati al passo precedente).
+	for (int step = 0; step < 2 * k - 1; step++) {
+
+		// Scorro contemporaneamente la colonna sinistra dall'alto
+		// verso il basso, e la colonna destra dal basso verso l'alto. 
+		if ((T[inizioColonna + step][inizioRiga] + // elemento colonna a sinistra;
+		T[fineColonna - step][fineRiga]) // elemento corrispondente colonna a destra;
+		!= T[centro][centro])
+			return false;
+	}
+
+	return true;
+}

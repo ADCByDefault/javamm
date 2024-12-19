@@ -1,0 +1,45 @@
+import java.lang.Math;
+
+int comprimi(int n, byte k) {
+	int numCompresso = 0;
+	int sommaGruppo = 0;
+	int cont = 0;
+	while (n > 0) {
+		sommaGruppo = sommaValori(n % ((int) Math.pow(10, k)));
+		n = n / ((int) Math.pow(10, k));
+		numCompresso = numCompresso + sommaGruppo * (int) Math.pow(10, cont);
+		cont += contaCifre(sommaGruppo);
+	}
+	return numCompresso;
+}
+
+int sommaValori(int n) {
+	int somma = 0;
+	while (n > 0) {
+		somma += (n % 10);
+		n /= 10;
+	}
+	return somma;
+}
+
+int contaCifre(int n) {
+	if(n == 0) return 1;
+	int cont = 0;
+	while (n > 0) {
+		n /= 10;
+		cont++;
+	}
+	return cont;
+}
+/*int espandi(int n, byte k) {
+
+ * 	return 0;
+
+ * }
+
+ * // Consegna Extra
+ * boolean connessi(int n1, int n2, byte k) {
+
+ * 	return false;
+ * }
+ */

@@ -1,0 +1,14 @@
+
+// Consegna Standard (o Ridotta)
+int inverti(int n, byte k) {
+
+	return 0;
+
+}
+
+// Consegna Extra.
+boolean collegati(int n, int m, byte k) {
+
+	return false;
+}
+

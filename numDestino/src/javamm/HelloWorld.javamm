@@ -1,0 +1,16 @@
+int destino(int n){
+	if(n<10) return n;
+	int somma = sommaCifre(n);
+	return destino(somma);
+}
+
+int sommaCifre(int n){
+	int somma = 0;
+	while(n > 0){
+		somma += n%10;
+		n /= 10;
+	}
+	return somma;
+}
+
+System.out.println(destino(21061961));

@@ -1,0 +1,60 @@
+
+// Se diag==true verifico l'esistenza della parola nelle direzioni:
+// - da Alto-Sinistra verso Basso-Destra
+// - da Basso-Destra verso Alto-Sinistra
+
+// Se diag==false verifico l'esistenza della parola nelle direzioni:
+// - da Basso-Sinistra verso Alto-Destra
+// - da Alto-Destra verso Basso-Sinistra
+
+boolean trovaParolaDiag(char[][] M, char[] p, int r, int c, boolean diag) {
+
+	int ind = 0;
+	boolean trovabileDaDestra = true, // M potrebbe ancora contenere p letto da destra a sinistra  
+	trovabileDaSinistra = true; // M potrebbe ancora contenere p letto da sinistra a destra
+	while ((ind < p.length) && (trovabileDaDestra || trovabileDaSinistra)) {
+
+		// Verifico se p letto da sinistra a destra è presente in M a partire dalla cella (r,c)
+		if(M[r][c] != p[ind]) trovabileDaSinistra = false;
+
+		// Verifico se p letto da destra a sinistra è presente in M a partire dalla cella (r,c)
+		if(M[r][c] != p[p.length - 1 - ind]) trovabileDaDestra = false;
+
+		// Se diag==true incremento l'indice riga poiché mi sto spostando 
+		// nella direzione da Alto-Sinistra verso Basso-Destra.
+		// Se diag==false decremento l'indice riga poiché mi sto spostando 
+		// nella direzione da Basso-Sinistra verso Alto-Destra.
+		r = diag ? ++r : --r;
+
+		c++;
+		ind++;
+
+	}
+
+	// Restituisco true se M nella direzione selezionata contiene la parola p 
+	// letta da sinistra verso destra o letta da destra verso sinistra a 
+	// partire dalla cella (r,c)
+	return (trovabileDaDestra || trovabileDaSinistra);
+}
+
+boolean trovaParolaDiagonale(char[][] M, char[] p) {
+
+	// Scorro solo le diagonali che hanno spazio sufficiente per contenere p 
+	for (int r = 0; r <= M.length - p.length; r++) {
+
+		for (int c = 0; c <= M[0].length - p.length; c++) {
+
+			// Verifico se p è contenuto in M a partire dalla cella (r,c), nelle direzioni: 
+			// - da Alto-Sinistra verso Basso-Destra
+			// - da Basso-Destra verso Alto-Sinistra
+			if(trovaParolaDiag(M, p, r, c, true)) return (true);
+
+			// Verifico se p è contenuto in M a partire dalla cella (M.length-1-r,c), nelle direzioni: 
+			// - da Basso-Sinistra verso Alto-Destra
+			// - da Alto-Destra verso Basso-Sinistra
+			if(trovaParolaDiag(M, p, M.length - 1 - r, c, false)) return (true);
+
+		}
+	}
+	return false;
+}

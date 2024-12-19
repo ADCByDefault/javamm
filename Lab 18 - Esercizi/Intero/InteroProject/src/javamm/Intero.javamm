@@ -1,0 +1,37 @@
+
+boolean bilanciato(int n) {
+	int right = 0;
+	int left = getSize(n) - 1;
+
+	if(left == 1) return n % 10 == n / 10;
+	if(left % 2 == 0) return false;
+
+	int fattore = getNthCifra(left, n) + getNthCifra(right, n);
+	while (left > right) {
+		if (getNthCifra(left, n) + getNthCifra(right, n) != fattore) {
+			return false;
+		}
+		left--;
+		right++;
+	}
+	return true;
+}
+
+int getSize(int n) {
+	if(n == 0) return 1;
+	int cont = 0;
+	while (n != 0) {
+		cont++;
+		n = n / 10;
+	}
+	return cont;
+}
+
+int getNthCifra(int n, int num) {
+	int i = (int) Math.pow(10, n);
+	num = num / i;
+	i = num % 10;
+	return i;
+}
+
+System.out.println(bilanciato(4220));

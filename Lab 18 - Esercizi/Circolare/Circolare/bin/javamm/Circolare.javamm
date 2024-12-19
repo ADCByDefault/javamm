@@ -1,0 +1,53 @@
+boolean circolare(char[][] M) {
+	int i = 0, j = 0, cont = M.length * M[0].length;
+
+	while (true) {
+		char c = M[i][j];
+		M[i][j] = 'V';
+		switch (c) {
+			case 'A': i--;
+			break;
+			case 'B': i++;
+			break;
+			case 'S': j--;
+			break;
+			case 'D': j++;
+			break;
+		}
+		if(i < 0) i = M.length - 1;
+		if(j < 0) j = M[0].length - 1;
+		i = i % M.length;
+		j = j % M[0].length;
+		cont--;
+
+		if(i == 0 && j == 0 && cont == 0) return true;
+		if(M[i][j] == 'V') return false;
+	}
+}
+
+boolean circolareInversa(char[][] M) {
+	int i = 0, j = 0, cont = M.length * M[0].length;
+
+	while (true) {
+		char c = M[i][j];
+		M[i][j] = 'V';
+		switch (c) {
+			case 'A': i++;
+			break;
+			case 'B': i--;
+			break;
+			case 'S': j++;
+			break;
+			case 'D': j--;
+			break;
+		}
+		if(i < 0) i = M.length - 1;
+		if(j < 0) j = M[0].length - 1;
+		i = i % M.length;
+		j = j % M[0].length;
+		cont--;
+
+		if(i == 0 && j == 0 && cont == 0) return true;
+		if(M[i][j] == 'V') return false;
+	}
+}

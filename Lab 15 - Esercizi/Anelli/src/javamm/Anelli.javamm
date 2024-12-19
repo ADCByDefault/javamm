@@ -1,0 +1,4 @@
+boolean anelloBilanciato(int[][] T, int k) {
+
+	return false;
+}

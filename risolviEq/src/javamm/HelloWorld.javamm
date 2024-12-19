@@ -1,0 +1,12 @@
+
+void risolviEq(int a, int b){
+	if(a==0){
+		if(b==0){
+			System.out.println("Eq indeterminata");
+			return;
+		}
+		System.out.println("Eq impossibile");
+		return;
+	}
+	System.out.println("sol: " + (-b/a));
+}

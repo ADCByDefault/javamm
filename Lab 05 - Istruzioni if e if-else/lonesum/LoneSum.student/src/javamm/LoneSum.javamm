@@ -1,0 +1,11 @@
+int loneSum(int a, int b, int c) {
+	int somma = 0;
+	if(a != b && a != c) somma += a;
+	if(b != a && b != c) somma += b;
+	if(c != a && c != b) somma += c;
+	return somma;
+	
+	
+}
+
+System.out.println(loneSum(1,1,2));

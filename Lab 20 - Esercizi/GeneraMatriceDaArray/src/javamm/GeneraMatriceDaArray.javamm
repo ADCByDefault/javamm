@@ -1,0 +1,64 @@
+
+// Consegna obbligatoria (soluzione iterativa)
+int[][] generaMatriceDaArray(int[] arr) {
+	int righe = getMax(arr);
+	int colonne = sommatoria(arr);
+	int[][] M = new int[righe][colonne];
+	int cont = 1;
+	int inizio = 0;
+	for (int i = 0; i < arr.length; i++) {
+		cont = riempiAQuadrato(M, cont, inizio, arr[i]);
+		inizio += arr[i];
+	}
+	return M;
+}
+
+int riempiAQuadrato(int[][] M, int cont, int inizio, int dimensione) {
+	for (int i = 0; i < dimensione; i++) {
+		for (int j = 0; j < dimensione; j++) {
+			M[i][j + inizio] = cont;
+			cont++;
+		}
+	}
+	return cont;
+}
+
+int sommatoria(int[] arr) {
+	int acc = 0;
+	for (int i = 0; i < arr.length; i++) {
+		acc += arr[i];
+	}
+	return acc;
+}
+
+int getMax(int[] arr) {
+	int max = arr[0];
+	for (int i = 1; i < arr.length; i++) {
+		if(max < arr[i]) max = arr[i];
+	}
+	return max;
+}
+
+// Consegna aggiuntiva (facoltativa - soluzione ricorsiva)
+int[][] generaMatriceDaArrayRicorsivo(int[] arr) {
+	int righe = getMax(arr);
+	int colonne = sommatoria(arr);
+	int[][] M = new int[righe][colonne];
+	ricorsiva(arr, 0, M, 0, 1);
+	return M;
+}
+
+void ricorsiva(int[] arr, int i, int[][] M, int inizio, int cont) {
+	if(i == arr.length) return;
+	cont = riempiAQuadrato(M, cont, inizio, arr[i]);
+	ricorsiva(arr, i + 1, M, inizio + arr[i], cont);
+}
+
+int[][] matrix = generaMatriceDaArrayRicorsivo({2, 4, 1, 3});
+
+for (int i = 0; i < matrix.length; i++) {
+	for (int j = 0; j < matrix[i].length; j++) {
+		System.out.print(matrix[i][j] + " ");
+	}
+	System.out.println();
+}

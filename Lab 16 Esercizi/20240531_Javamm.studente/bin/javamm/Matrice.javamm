@@ -1,0 +1,13 @@
+// Consegna OBBLIGATORIA
+boolean piramide(byte[][] M, int k) {
+
+	return false;
+}
+
+
+// Consegna EXTRA - FACOLTATIVA
+int altezzaMassimaPiramide(byte[][] M) {
+
+	return 0;
+
+}

@@ -1,0 +1,34 @@
+
+//Iterativa
+/*boolean testBilanciamento(int[] arr) {
+
+ * 	if(arr.length == 0 || arr.length % 2 != 0) return false;
+
+ * 	if(arr.length == 2) return arr[0] == arr[1];
+
+ * 	int b = arr[0] + arr[arr.length - 1];
+ * 	for (int i = 0; i < arr.length / 2; i++) {
+ * 		if(arr[i] + arr[arr.length - i - 1] != b) return false;
+ * 	}
+
+ * 	return true;
+ }*/
+//Ricorsiva
+boolean testBilanciamento(int[] arr) {
+
+	if(arr.length == 0 || arr.length % 2 != 0) return false;
+	if(arr.length == 2) return arr[0] == arr[1];
+
+	int b = arr[0] + arr[arr.length - 1];
+	return isBilanciato(arr, 0, arr.length - 1, b);
+}
+
+boolean isBilanciato(int[] arr, int left, int right, int num) {
+	if(left >= right) return true;
+
+	if (arr[left] + arr[right] == num)
+		return isBilanciato(arr, left + 1, right - 1, num);
+
+	return false;
+}
+

@@ -1,0 +1,11 @@
+// CONSEGNA OBBLIGATORIA
+int[][] scorrimentoRighe(int[][] M) {
+
+	return null;
+}
+
+// CONSEGNA EXTRA (FACOLTATIVA)
+int[][] scorrimentoRigheNposizioni (int [][] M, short p) {
+		
+	return null;
+}

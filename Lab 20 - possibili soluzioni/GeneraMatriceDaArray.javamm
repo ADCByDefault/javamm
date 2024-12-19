@@ -1,0 +1,89 @@
+int[] calcolaDimM(int[] arr) {
+
+	int colonne = 0;
+	int righe = 0;
+	for (int i = 0; i < arr.length; i++) {
+		// Sommo il numero di colonne di tutte le matrici quadrate
+		colonne += arr[i];
+		// Trovo la matrice quadrata con il numero massimo di righe			
+		if(arr[i] > righe) righe = arr[i];
+	}
+	return new int[] {righe, colonne};
+}
+
+// Consegna obbligatoria (soluzione iterativa)
+int[][] generaMatriceDaArray(int[] arr) {
+
+	// Calcolo la dimensione di M (dim[0] sono le righe, dim[1] le colonne).
+	int[] dim = calcolaDimM(arr);
+
+	int[][] M = new int[dim[0]][dim[1]];
+	int contatore = 1; // Prossimo valore intero da inserire nella sequenza
+	int colonnaDiPartenza = 0; // Numero di colonne da saltare per scrivere nella 
+	// posizione corretta della matrice M
+	// Ciclo su tutti gli elementi di arr
+	for (int k = 0; k < arr.length; k++) {
+
+		// Lavoro direttamente sulla matrice M e riempio gli elementi corrispondenti 
+		// alla matrice quadrata k-esima (M_k), riempiendo le righe da sinistra verso destra 
+		// e dall'alto verso il basso.
+		for (int i = 0; i < arr[k]; i++) {
+			for (int j = 0; j < arr[k]; j++) {
+
+				M[i][colonnaDiPartenza + j] = contatore++;
+
+			}
+		}
+
+		// Per scrivere la sequenza della prossima matrice quadrata M_{k+1} nella 
+		// posizione corretta di M, alla prossima iterazione dovrò saltare altre 
+		// arr[k] colonne (quelle occupate dalla matrice M_k).
+		colonnaDiPartenza += arr[k];
+
+	}
+
+	return (M);
+}
+
+// Consegna aggiuntiva (facoltativa - soluzione ricorsiva)
+int[][] generaMatriceDaArrayRicorsivo(int[] arr) {
+
+	// Calcolo la dimensione di M (dim[0] sono le righe, dim[1] le colonne).
+	int[] dim = calcolaDimM(arr);
+
+	int[][] M = new int[dim[0]][dim[1]];
+
+	return (generaRic(M, arr, 0, 1, 0));
+
+}
+
+// Parametri formali.
+// M: matrice da riempire
+// arr: array di interi, come da specifica
+// indiceArr: indice dell'array che si sta considerando nella chiamata
+// contatore: prossimo valore intero da inserire nella sequenza
+// colonnaDiPartenza: numero di colonne da saltare per scrivere nella posizione 
+// corretta della matrice M
+int[][] generaRic(int[][] M, int[] arr, int indiceArr, int contatore, int colonnaDiPartenza) {
+
+	// Caso base: ho scansionato tutti gli elementi di arr
+	if(indiceArr == arr.length) return M;
+
+	// Lavoro direttamente sulla matrice M e riempio gli elementi corrispondenti 
+	// alla matrice quadrata di indice 'indiceArr', riempiendo le righe da sinistra verso destra 
+	// e dall'alto verso il basso.
+	for (int i = 0; i < arr[indiceArr]; i++) {
+
+		for (int j = 0; j < arr[indiceArr]; j++) {
+
+			M[i][colonnaDiPartenza + j] = contatore++;
+
+		}
+	}
+
+	// Il prossimo elemento di arr da analizzare è quello di indice 'indiceArr+1'.
+	// Per scrivere la sequenza della prossima matrice quadrata M_{indiceArr+1} nella 
+	// posizione corretta di M, alla prossima chiamata dovrò saltare altre 
+	// arr[indiceArr] colonne (quelle occupate dalla matrice M_indiceArr).
+	return (generaRic(M, arr, indiceArr + 1, contatore, colonnaDiPartenza + arr[indiceArr]));
+}

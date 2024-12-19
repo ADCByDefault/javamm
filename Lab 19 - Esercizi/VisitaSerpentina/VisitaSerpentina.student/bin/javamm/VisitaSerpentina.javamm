@@ -1,0 +1,21 @@
+int[] visitaSerpentina(int[][] M, int riga, int colonna) {
+	if(M.length % 2 == 1) return null;
+	int[] arr = new int[(M.length * M[0].length)];
+	int move = 1, i = riga, j = colonna + 1, cont = 1;
+	arr[0] = M[i][colonna];
+	while (true) {
+		while (true) {
+			if(cont == arr.length) return arr;
+			if((j >= M[0].length) || j < 0) break;
+			arr[cont] = M[i][j];
+			cont = cont + 1;
+			j = j + move;
+		}
+		move = move * (-1);
+		j += move;
+		i++;
+		i = i % M.length;
+	}
+}
+//int[][] M = {{1, 2}, {3, 4}};
+//visitaSerpentina(M, 0, 0);

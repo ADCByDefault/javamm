@@ -1,0 +1,136 @@
+//Dato una matrice di char M e una array di char p in ingresso
+//la funzione ritorna true se l'array p è una sottostring di almeno
+//un verso di una fra tutte le diagonali di M, si ricorda che
+//la diagonale non perforza inizia o finisce per char 
+//iniziale o finale dell'array
+//nomeinclatura: 
+//cbs = contatore basso sinistra
+//icas = contatore alto sinistra inverso
+//iad = indici alto destra
+//...
+//creare array che tengono traccia degli indici non è necessario
+//ma sono di aiuto per avere un idea mentale di cosa andiamo a fare
+boolean trovaParolaDiagonale(char[][] M, char[] p) {
+	// cont = {cbd,cbs,cad,cas}
+	int[] c = {0, 0, 0, 0};
+	// icont = {icbd,icbs,icad,icas}
+	int[] ic = {0, 0, 0, 0};
+	int[] ibs = {0, 0}, ibd = {0, 0};
+	int[] ias = {0, 0}, iad = {0, 0};
+	for (int i = 0; i < M[0].length; i++) {
+		c = {0, 0, 0, 0};
+		ic = {0, 0, 0, 0};
+		ibs = {0, i};
+		ibd = {0, i};
+		ias = {M.length - 1, i};
+		iad = {M.length - 1, i};
+		for (int j = 0; j < M.length; j++) {
+			if (esiste(M, ibd)) {
+				if(get(M, ibd) != p[c[0]]) c[0] = 0;
+				if(get(M, ibd) != p[p.length - 1 - ic[0]]) ic[0] = 0;
+				if(get(M, ibd) == p[c[0]]) c[0]++;
+				if(get(M, ibd) == p[p.length - 1 - ic[0]]) ic[0]++;
+			} else {
+				c[0] = 0;
+				ic[0] = 0;
+			}
+			ibd = {ibd[0] + 1, ibd[1] + 1};
+			if (esiste(M, ibs)) {
+				if(get(M, ibs) != p[c[1]]) c[1] = 0;
+				if(get(M, ibs) != p[p.length - 1 - ic[1]]) ic[1] = 0;
+				if(get(M, ibs) == p[c[1]]) c[1]++;
+				if(get(M, ibs) == p[p.length - 1 - ic[1]]) ic[1]++;
+			} else {
+				c[1] = 0;
+				ic[1] = 0;
+			}
+
+			ibs = {ibs[0] + 1, ibs[1] - 1};
+			if (esiste(M, ias)) {
+				if(get(M, ias) != p[c[3]]) c[3] = 0;
+				if(get(M, ias) != p[p.length - 1 - ic[3]]) ic[3] = 0;
+				if(get(M, ias) == p[c[3]]) c[3]++;
+				if(get(M, ias) == p[p.length - 1 - ic[3]]) ic[3]++;
+			} else {
+				c[3] = 0;
+				ic[3] = 0;
+			}
+			ias = {ias[0] - 1, ias[1] - 1};
+			if (esiste(M, iad)) {
+				if(get(M, iad) != p[c[2]]) c[2] = 0;
+				if(get(M, iad) != p[p.length - 1 - ic[2]]) ic[2] = 0;
+				if(get(M, iad) == p[c[2]]) c[2]++;
+				if(get(M, iad) == p[p.length - 1 - ic[2]]) ic[2]++;
+			} else {
+				c[2] = 0;
+				ic[2] = 0;
+			}
+			iad = {iad[0] - 1, iad[1] + 1};
+			if(c[0] == p.length || c[1] == p.length || ic[0] == p.length || ic[1] == p.length) return true;
+			if(c[2] == p.length || c[3] == p.length || ic[2] == p.length || ic[3] == p.length) return true;
+		}
+	}
+	for (int i = M[0].length; i < M.length; i++) {
+		c = {0, 0, 0, 0};
+		ic = {0, 0, 0, 0};
+		iad = {i, 0};
+		ibd = {i, 0};
+		ias = {i, M[0].length - 1};
+		ibs = {i, M[0].length - 1};
+		for (int j = 0; j < M[0].length; j++) {
+			if (esiste(M, iad)) {
+				if(get(M, iad) != p[c[2]]) c[2] = 0;
+				if(get(M, iad) != p[p.length - 1 - ic[2]]) ic[2] = 0;
+				if(get(M, iad) == p[c[2]]) c[2]++; else c[2] = 0;
+				if(get(M, iad) == p[p.length - 1 - ic[2]]) ic[2]++; else ic[2] = 0;
+			} else {
+				c[2] = 0;
+				ic[2] = 0;
+			}
+			iad = {iad[0]--, iad[1]++};
+			if (esiste(M, ibd)) {
+				if(get(M, ibd) != p[c[0]]) c[0] = 0;
+				if(get(M, ibd) != p[p.length - 1 - ic[0]]) ic[0] = 0;
+				if(get(M, ibd) == p[c[0]]) c[0]++; else c[0] = 0;
+				if(get(M, ibd) == p[p.length - 1 - ic[0]]) ic[0]++; else ic[0] = 0;
+			} else {
+				c[0] = 0;
+				ic[0] = 0;
+			}
+			ibd = {ibd[0]++, ibd[1]++};
+
+			if (esiste(M, ias)) {
+				if(get(M, ias) != p[c[3]]) c[3] = 0;
+				if(get(M, ias) != p[p.length - 1 - ic[3]]) ic[3] = 0;
+				if(get(M, ias) == p[c[3]]) c[3]++; else c[3] = 0;
+				if(get(M, ias) == p[p.length - 1 - ic[3]]) ic[3]++; else ic[3] = 0;
+			} else {
+				c[3] = 0;
+				ic[3] = 0;
+			}
+			ias = {iad[0]--, iad[1]--};
+			if (esiste(M, ibs)) {
+				if(get(M, ibs) != p[c[1]]) c[1] = 0;
+				if(get(M, ibs) != p[p.length - 1 - ic[1]]) ic[1] = 0;
+				if(get(M, ibs) == p[c[1]]) c[1]++; else c[1] = 0;
+				if(get(M, ibs) == p[p.length - 1 - ic[1]]) ic[1]++; else ic[1] = 0;
+			} else {
+				c[1] = 0;
+				ic[1] = 0;
+			}
+			ibs = {ibs[0]++, ibs[1]--};
+			if(c[0] == p.length || c[1] == p.length || ic[0] == p.length || ic[1] == p.length) return true;
+			if(c[2] == p.length || c[3] == p.length || ic[2] == p.length || ic[3] == p.length) return true;
+
+		}
+	}
+	return false;
+}
+
+char get(char[][] M, int[] i) {
+	return M[i[0]][i[1]];
+}
+
+boolean esiste(char[][] M, int[] i) {
+	return !(i[0] < 0 || i[0] >= M.length || i[1] < 0 || i[1] >= M[0].length);
+}

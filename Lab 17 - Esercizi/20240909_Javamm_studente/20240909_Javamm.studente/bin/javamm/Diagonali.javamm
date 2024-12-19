@@ -1,0 +1,14 @@
+
+// Consegna Standard/Ridotta (obbligatoria)
+byte[][] generaMatrice(byte[] arr) {
+
+	return null;
+
+}
+
+// Consegna Extra (facoltativa)
+byte[] riduciMatrice(byte[][] M) {
+
+	return null;
+
+}

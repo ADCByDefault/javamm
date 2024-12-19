@@ -1,0 +1,55 @@
+int[][] azzeraNonUnici(int[][] M, int r, int c) {
+
+	// E' inutile controllare le occorrenze del valore 0 nella 
+	// matrice sottesa, la matrice rimarrebbe comunque la stessa
+	// poiché andrei ad azzerare elementi che sono già uguali a 0.
+	// Quindi in questo caso restituisco la matrice stessa e termino.
+	if(M[r][c] == 0) return M;
+
+	int num = M[r][c]; // Numero di cui devo controllare l'unicità. 
+	// Controllo la colonna c, partendo dalla riga r+1.
+	for (int i = r + 1; i < M.length; i++) {
+		if (M[i][c] == num) {
+
+			// Ci sono almeno 2 occorrenze di num, quindi azzero subito l'occorrenza
+			// in posizione [i][c] e quella iniziale in posizione [r][c].
+			M[i][c] = 0;
+			M[r][c] = 0;
+		}
+	}
+
+	// Controllo la riga r, partendo dalla colonna c+1.
+	for (int j = c + 1; j < M[0].length; j++) {
+		if (M[r][j] == num) {
+
+			// Ci sono almeno 2 occorrenze di num, quindi azzero subito l'occorrenza
+			// in posizione [r][j] e quella iniziale in posizione [r][c].
+			M[r][j] = 0;
+			M[r][c] = 0;
+		}
+	}
+
+	// Controllo la diagonale, partendo dalla riga r+1 e colonna c+1.
+	for (int i = r + 1, j = c + 1; (i < M.length && j < M[0].length); i++, j++) {
+		if (M[i][j] == num) {
+
+			// Ci sono almeno 2 occorrenze di num, quindi azzero subito l'occorrenza
+			// in posizione [i][j] e quella iniziale in posizione [r][c].
+			M[i][j] = 0;
+			M[r][c] = 0;
+		}
+	}
+
+	return M;
+}
+
+int[][] azzeraNonUniciMatrice(int[][] M) {
+
+	for (int i = 0; i < M.length; i++) {
+		for (int j = 0; j < M[0].length; j++) {
+			M = azzeraNonUnici(M, i, j);
+		}
+	}
+
+	return M;
+}

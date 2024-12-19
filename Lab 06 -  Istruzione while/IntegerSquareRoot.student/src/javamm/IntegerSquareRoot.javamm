@@ -1,0 +1,10 @@
+int integerSquareRoot(int n) {
+	int x = 0;
+	while (x * x <= n) {
+		x++;
+	}
+	return --x;
+}
+System.out.println(integerSquareRoot(13));
+System.out.println(integerSquareRoot(25));
+System.out.println(integerSquareRoot(5));
